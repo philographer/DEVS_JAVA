@@ -9,20 +9,22 @@ public class routing_model extends ViewableDigraph
 	{
 		super("routing_model");
     	
-		ViewableAtomic g = new sender("sender", 10); //어떤 모델을 가져다가 쓸 것인지.
+		ViewableAtomic g = new sender("sender", 10);
 		ViewableAtomic r = new router("router", 10);
-    	
-		add(g);// 시뮬레이터에 모델 등록. 
-		add(r); 
-		for(int i = 1;i<=5;i++) {
-			ViewableAtomic p  = new receiver("receiver #" + i,10);
+
+		add(g);
+		add(r);
+
+		for(int i=1; i<=5; i++)
+		{
+			ViewableAtomic p = new receiver("receiver #" + i, 10);
 			add(p);
-			addCoupling(r,"out"+i,p,"in");
+			addCoupling(r, "out" + i, p, "in");
 		}
-  
-		addCoupling(g, "out", r, "in");//각 모델끼리 연결해 주는것.
-		//addCoupling(A모델이름, A 모델의 포트 이름, B모델의 이름, B모델의 포트이름);
+
+		addCoupling(g, "out", r, "in");
 		addCoupling(r, "out", g, "in");
+
 	}
 
     
@@ -32,13 +34,13 @@ public class routing_model extends ViewableDigraph
      */
     public void layoutForSimView()
     {
-        preferredSize = new Dimension(988, 646);
-        ((ViewableComponent)withName("sender")).setPreferredLocation(new Point(269, 232));
-        ((ViewableComponent)withName("receiver #4")).setPreferredLocation(new Point(659, 417));
-        ((ViewableComponent)withName("receiver #5")).setPreferredLocation(new Point(664, 488));
-        ((ViewableComponent)withName("receiver #3")).setPreferredLocation(new Point(701, 331));
-        ((ViewableComponent)withName("receiver #1")).setPreferredLocation(new Point(645, 167));
-        ((ViewableComponent)withName("router")).setPreferredLocation(new Point(260, 389));
-        ((ViewableComponent)withName("receiver #2")).setPreferredLocation(new Point(667, 256));
+        preferredSize = new Dimension(995, 557);
+        ((ViewableComponent)withName("router")).setPreferredLocation(new Point(293, 171));
+        ((ViewableComponent)withName("receiver #2")).setPreferredLocation(new Point(589, 118));
+        ((ViewableComponent)withName("receiver #1")).setPreferredLocation(new Point(590, 47));
+        ((ViewableComponent)withName("receiver #5")).setPreferredLocation(new Point(483, 482));
+        ((ViewableComponent)withName("sender")).setPreferredLocation(new Point(27, 162));
+        ((ViewableComponent)withName("receiver #3")).setPreferredLocation(new Point(590, 187));
+        ((ViewableComponent)withName("receiver #4")).setPreferredLocation(new Point(497, 339));
     }
 }
