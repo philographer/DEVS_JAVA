@@ -86,7 +86,7 @@ public class sender extends ViewableAtomic
 				m.add(makeContent("out", new packet("packet" + count, (int)(Math.random() * 5) + 1)));
 				// packet(String name, int _arrival)
 				// packet�� �����Ͽ� ������ ������(receiver)�� ����
-				System.out.println("sender�κ��� packet ����");
+				// System.out.println("sender�κ��� packet ����");
 				packet_num++;
 				// ������ ��Ŷ�� �� ����
 			}

@@ -6,7 +6,7 @@ import simView.*;
 public class router extends ViewableAtomic
 {
 	
-	protected Queue q; // sender�� ���� ���� packet�� ������ ť
+	protected Queue q; // sender로 부터 들어온 packet을 큐에 담음
 	protected packet packet;
 	protected double processing_time;
 	
@@ -23,12 +23,12 @@ public class router extends ViewableAtomic
     
 		addInport("in");
 		
-		for(int i=1; i<=5; i++) // (receiver�� ��Ŷ�� �����ϱ� ����)5���� output port����
+		for(int i=1; i<=5; i++) // receiver로 보낼 5개의 out 포트 생성
 		{
 			addOutport("out" + i);
 		}
 		
-		addOutport("out"); // sender���� �޽����� ������ ���� output port ����
+		addOutport("out"); // sender로 보낼 out 포트 생성
 		
 		processing_time = Processing_time;
 	}
@@ -39,9 +39,7 @@ public class router extends ViewableAtomic
 		q = new Queue(); // queue ����
 		packet = new packet("", 0);
 		
-		holdIn("passive", INFINITY);
-	
-		System.out.println("ȣ�� init"+call_num);
+		holdIn("passive", processing_time);
 		call_num = call_num + 1;
 	}
 
@@ -49,8 +47,6 @@ public class router extends ViewableAtomic
 	{
 	
 		Continue(e);
-		
-		System.out.println("ȣ�� ext"+call_num);
 		call_num = call_num + 1;
 		if (phaseIs("passive"))
 		{
@@ -59,14 +55,8 @@ public class router extends ViewableAtomic
 				if (messageOnPort(x, "in", i))
 				{
 					packet = (packet) x.getValOnPort("in", i);
-
-					q.add(packet); // sender�� ���� ���� ��Ŷ�� ť�� �߰�
-					
-					if(q.size() == 5) // queue ����� 5�̸�
-					{
-						holdIn("sending", processing_time);
-						// sending ���·� ����
-					}
+					holdIn("passive", processing_time);
+					q.add(packet); // sender에게서 받은 패킷을 queue에 저장
 				}
 			}
 		}
@@ -74,38 +64,38 @@ public class router extends ViewableAtomic
 	
 	public void deltint()
 	{
-
-		System.out.println("ȣ�� int"+call_num);
+		System.out.println("delt init called");
 		call_num = call_num + 1;
-		
+		if(q.size() == 5) {
+			holdIn("sending", processing_time);
+		}
 	}
 
 	public message out()
 	{
-		System.out.println("ȣ�� out"+call_num);
 		call_num = call_num + 1;
 		message m = new message();
 		
 		if (phaseIs("sending"))
 		{
-			if(!q.isEmpty()) // queue�� ������� ������
+			if(!q.isEmpty()) // queue가 비어있지 않으면
 			{
 				packet = (packet) q.removeFirst();
-				// queue���� ��Ŷ�� ������
+				// q에서 패킷을 제거
 				int portNum = packet.getArrival();	
-				//  �ش� ��Ŷ�� ������ ��ȣ�� ������ 
+				// packet에서 어디에 갈 패킷인지 보고
 				m.add(makeContent("out" + portNum, packet));					
-				// �ش� ��Ŷ�� ������ ��Ʈ ��ȣ�� packet ����
+				// 메세지를 해당 포트에 보냄
 				
 				holdIn("sending", processing_time);	
-				// sending ���·� ����
+				// sending 상태로 천이
 			}
-			else // queue�� ����ִٸ�
+			else // queue가 비어있으면
 			{
 				m.add(makeContent("out", new packet("done", 0)));
-				// sender ���� done �޽��� ����
+				// 완료 메세지를 보냄
 				holdIn("passive", processing_time);	
-				// passive ���·� ����
+				// passive 상태로 천이
 			}
 		}
 
