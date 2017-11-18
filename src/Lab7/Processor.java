@@ -7,7 +7,7 @@ import simView.ViewableAtomic;
 public class Processor extends ViewableAtomic
 {
   
-	protected entity job;
+	protected job job;
 	protected double processing_time;
 
 	public Processor()
@@ -28,7 +28,7 @@ public class Processor extends ViewableAtomic
   
 	public void initialize()
 	{
-		job = new entity("");
+		job = new job("", false);
 		
 		holdIn("passive", INFINITY); // 초기 상태: passive (Job 처리중이 아닌 상태)
 	}
@@ -42,8 +42,7 @@ public class Processor extends ViewableAtomic
 			{
 				if (messageOnPort(x, "in", i))
 				{
-					job = x.getValOnPort("in", i);
-					
+					job = (job)x.getValOnPort("in", i);
 					holdIn("busy", processing_time);
 				}
 			}
@@ -54,7 +53,7 @@ public class Processor extends ViewableAtomic
 	{
 		if (phaseIs("busy"))
 		{
-			job = new entity("");
+			job = new job("", false);
 			
 			holdIn("passive", INFINITY);
 		}
@@ -66,8 +65,11 @@ public class Processor extends ViewableAtomic
 		// 다음 이벤트는 busy 상태일때 동작하는 것
 		if (phaseIs("busy"))
 		{
+			if(job.isLast == true) {
+				holdIn("stop", INFINITY);
+			}
 			m.add(makeContent("out_1", job));
-			m.add(makeContent("out_2", new entity("done")));
+			m.add(makeContent("out_2", new job("done", true)));
 		}
 		return m;
 	}

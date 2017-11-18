@@ -8,7 +8,7 @@ public class Queue extends ViewableAtomic
 {
 	
 	protected GenCol.Queue q; // queue 생성
-	protected entity job;
+	protected job job;
 	protected double processing_time;
 	
 	public Queue()
@@ -30,7 +30,7 @@ public class Queue extends ViewableAtomic
 	public void initialize()
 	{
 		q = new GenCol.Queue();
-		job = new entity("");
+		job = new job("", false);
 		
 		holdIn("passive", INFINITY); // 초기상태 : passive
 	}
@@ -44,7 +44,7 @@ public class Queue extends ViewableAtomic
 			{
 				if (messageOnPort(x, "in_1", i))
 				{
-					job = x.getValOnPort("in_1", i);
+					job = (job)x.getValOnPort("in_1", i);
 					
 					holdIn("forwarding", 0); // forwarding: processor로 job이 전송이 가능한 상태
 				}
@@ -102,7 +102,7 @@ public class Queue extends ViewableAtomic
 		if (phaseIs("forwarding"))
 		{
 			if(!q.isEmpty()) {
-				job = (entity)q.removeFirst();
+				job = (job)q.removeFirst();
 			}
 			m.add(makeContent("out", job));
 		}

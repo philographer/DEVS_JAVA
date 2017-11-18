@@ -61,7 +61,12 @@ public class Generator extends ViewableAtomic
 	public message out()
 	{
 		message m = new message();
-		m.add(makeContent("out", new entity("job" + count)));
+		boolean isLast = false;
+		if(count == 4) {
+			isLast = true;
+		}
+		System.out.println("generator "+ count + " " +isLast);
+		m.add(makeContent("out", new job("job" + count, isLast)));
 		return m;
 	}
   
