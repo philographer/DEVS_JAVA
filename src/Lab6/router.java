@@ -39,7 +39,7 @@ public class router extends ViewableAtomic
 		q = new Queue(); // queue ����
 		packet = new packet("", 0);
 		
-		holdIn("passive", processing_time);
+		holdIn("passive", processing_time); // 초기화시, processing_time만큼 기다리게 만듬 (10)
 		call_num = call_num + 1;
 	}
 
@@ -66,7 +66,7 @@ public class router extends ViewableAtomic
 	{
 		System.out.println("delt init called");
 		call_num = call_num + 1;
-		if(q.size() == 5) {
+		if(q.size() == 5) { // queue에 있는 패킷이 5개이면
 			holdIn("sending", processing_time);
 		}
 	}
