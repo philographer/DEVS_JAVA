@@ -83,7 +83,7 @@ public class processor extends ViewableAtomic
 		{
 			job = new entity("");
 			holdIn("busy", temp_time);
-		} else {
+		} else { // busy
 		    if(!q.isEmpty()) {
 		        job = (entity)q.removeFirst();
 		        holdIn("busy", processing_time);
@@ -112,8 +112,10 @@ public class processor extends ViewableAtomic
 	{
 
 		return
-		super.getTooltipText()
-		+ "\n" + "job: " + job.getName();
+		super.getTooltipText() + "\n"
+		+ "job: " + job.getName() + "\n"
+		+ "now queue: " + q.size() + "\n"
+		+ "max size is" + size;
 	}
 
 }

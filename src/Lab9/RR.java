@@ -1,6 +1,5 @@
 package Lab9;
 
-import SimpArc.genr;
 import SimpArc.proc;
 import SimpArc.transd;
 import simView.ViewableAtomic;
@@ -13,7 +12,7 @@ public class RR extends ViewableDigraph
 {
 
 	final int NODE = 5;
-	final int QUEUE = 0;
+	final int QUEUE = 1;
 	int [] proc_t = {0, 100, 200, 450, 300, 500, 300}; // processing time
 
 
@@ -49,8 +48,13 @@ public class RR extends ViewableDigraph
     public void layoutForSimView()
     {
         preferredSize = new Dimension(988, 646);
-        ((ViewableComponent)withName("g")).setPreferredLocation(new Point(578, 154));
-        ((ViewableComponent)withName("sched")).setPreferredLocation(new Point(465, 476));
-        ((ViewableComponent)withName("evaluator")).setPreferredLocation(new Point(59, 148));
+        ((ViewableComponent)withName("processor5")).setPreferredLocation(new Point(638, 567));
+        ((ViewableComponent)withName("g")).setPreferredLocation(new Point(132, 431));
+        ((ViewableComponent)withName("processor4")).setPreferredLocation(new Point(635, 475));
+        ((ViewableComponent)withName("sched")).setPreferredLocation(new Point(345, 512));
+        ((ViewableComponent)withName("processor1")).setPreferredLocation(new Point(660, 224));
+        ((ViewableComponent)withName("processor2")).setPreferredLocation(new Point(660, 294));
+        ((ViewableComponent)withName("processor3")).setPreferredLocation(new Point(658, 363));
+        ((ViewableComponent)withName("evaluator")).setPreferredLocation(new Point(826, 417));
     }
 }
