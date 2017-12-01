@@ -48,13 +48,13 @@ public class RR extends ViewableDigraph
     public void layoutForSimView()
     {
         preferredSize = new Dimension(988, 646);
-        ((ViewableComponent)withName("processor5")).setPreferredLocation(new Point(638, 567));
-        ((ViewableComponent)withName("g")).setPreferredLocation(new Point(132, 431));
-        ((ViewableComponent)withName("processor4")).setPreferredLocation(new Point(635, 475));
+        ((ViewableComponent)withName("processor3")).setPreferredLocation(new Point(658, 363));
         ((ViewableComponent)withName("sched")).setPreferredLocation(new Point(345, 512));
+        ((ViewableComponent)withName("g")).setPreferredLocation(new Point(132, 431));
         ((ViewableComponent)withName("processor1")).setPreferredLocation(new Point(660, 224));
         ((ViewableComponent)withName("processor2")).setPreferredLocation(new Point(660, 294));
-        ((ViewableComponent)withName("processor3")).setPreferredLocation(new Point(658, 363));
-        ((ViewableComponent)withName("evaluator")).setPreferredLocation(new Point(826, 417));
+        ((ViewableComponent)withName("processor4")).setPreferredLocation(new Point(635, 475));
+        ((ViewableComponent)withName("processor5")).setPreferredLocation(new Point(638, 567));
+        ((ViewableComponent)withName("evaluator")).setPreferredLocation(new Point(943, 342));
     }
 }

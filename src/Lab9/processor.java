@@ -88,6 +88,9 @@ public class processor extends ViewableAtomic
 		        job = (entity)q.removeFirst();
 		        holdIn("busy", processing_time);
             } else {
+		    	if(phaseIs("passive")) {
+		    		System.out.println("passive -> passive");
+				}
 		        holdIn("passive", INFINITY);
             }
         }
